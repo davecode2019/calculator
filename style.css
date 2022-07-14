@@ -1,0 +1,31 @@
+/* GENERAL STYLES */
+
+body {
+  font-family: "Red Hat Mono", monospace;
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+}
+
+header {
+  font-family: "Gruppo", cursive;
+  font-size: 30px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+main {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+footer {
+  font-family: "Gruppo", cursive;
+  font-size: 20px;
+  margin-top: auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}

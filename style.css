@@ -1,3 +1,9 @@
+/* BORDER SWITCH FOR DESIGN */
+
+/* * {
+  border: 1px solid red;
+} */
+
 /* GENERAL STYLES */
 
 body {
@@ -16,6 +22,7 @@ header {
 }
 
 main {
+  margin-top: 40px;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -28,4 +35,52 @@ footer {
   display: flex;
   justify-content: center;
   align-items: center;
+}
+
+button {
+  padding: 0;
+  margin: 0;
+}
+
+/* CALCULATOR STYLES */
+
+.calculator {
+  border: 1px solid black;
+  box-shadow: 0 0 10px 1px;
+}
+
+.display {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 50px;
+  padding: 0 10px;
+  margin: 2px;
+  font-size: 30px;
+  border: 1px solid black;
+  border-radius: 2px;
+}
+
+.operator-display {
+  text-align: left;
+}
+
+.number.display {
+  text-align: right;
+}
+
+.button-row {
+  display: flex;
+}
+
+.number,
+.decimal,
+.operator {
+  padding: 0;
+  margin: 2px;
+  width: 75px;
+  height: 50px;
+  font-size: 20px;
+  border: 1px solid black;
+  border-radius: 2px;
 }

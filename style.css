@@ -40,6 +40,11 @@ footer {
 button {
   padding: 0;
   margin: 0;
+  transition: all 0.07s ease;
+}
+
+button:hover {
+  transform: scale(1.05);
 }
 
 /* CALCULATOR STYLES */
@@ -55,7 +60,7 @@ button {
   align-items: center;
   height: 50px;
   padding: 0 10px;
-  margin: 2px;
+  margin: 5px;
   font-size: 30px;
   border: 1px solid black;
   border-radius: 2px;
@@ -77,7 +82,7 @@ button {
 .decimal,
 .operator {
   padding: 0;
-  margin: 2px;
+  margin: 5px;
   width: 75px;
   height: 50px;
   font-size: 20px;

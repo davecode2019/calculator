@@ -34,3 +34,12 @@ function operate(operator, x, y) {
       return "Invalid operator.";
   }
 }
+
+const operatorDisplay = document.querySelector(".operator-display");
+const numberDisplay = document.querySelector(".number-display");
+
+let currentOperator = "*";
+let currentNumbers = "0987654321";
+
+operatorDisplay.innerHTML = currentOperator;
+numberDisplay.innerHTML = currentNumbers;

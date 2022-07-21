@@ -16,8 +16,10 @@ function divide(x, y) {
   return x / y;
 }
 
-function operate(operator, x, y) {
-  switch (operator) {
+function operate(stack) {
+  let x = Number(stack[0]);
+  let y = Number(stack[2]);
+  switch (stack[1]) {
     case "+":
       return add(x, y);
       break;
@@ -35,11 +37,57 @@ function operate(operator, x, y) {
   }
 }
 
+function updateNumberDisplay(str) {
+  if (currentNumbers.length <= 15) {
+    if (currentNumbers === "0") {
+      currentNumbers = str;
+      numberDisplay.innerHTML = currentNumbers;
+    } else {
+      currentNumbers += str;
+      numberDisplay.innerHTML = currentNumbers;
+    }
+  }
+}
+
+function updateOperatorDisplay(operator) {
+  currentOperator = operator;
+  operatorDisplay.innerHTML = currentOperator;
+}
+
+function operatorPress(operator) {
+  updateOperatorDisplay(operator);
+  if (stack.length === 2) {
+    if (operator === "=") {
+      stack.push(currentNumbers);
+      currentNumbers = operate(stack);
+      numberDisplay.innerHTML = currentNumbers;
+    } else {
+      stack[1] = operator;
+    }
+  } else {
+    stack.push(currentNumbers);
+    currentNumbers = "0";
+    stack.push(operator);
+  }
+}
+
 const operatorDisplay = document.querySelector(".operator-display");
 const numberDisplay = document.querySelector(".number-display");
+const numberButtons = document.querySelectorAll(".number");
+const operatorButtons = document.querySelectorAll(".operator");
 
-let currentOperator = "*";
-let currentNumbers = "0987654321";
+let currentOperator = "";
+let currentNumbers = "0";
+let stack = [];
 
-operatorDisplay.innerHTML = currentOperator;
-numberDisplay.innerHTML = currentNumbers;
+numberButtons.forEach((button) => {
+  button.addEventListener("click", function (e) {
+    updateNumberDisplay(e.target.id);
+  });
+});
+
+operatorButtons.forEach((button) => {
+  button.addEventListener("click", function (e) {
+    operatorPress(e.target.id);
+  });
+});

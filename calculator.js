@@ -1,5 +1,3 @@
-const OPERATORS = ["+", "-", "*", "/", "="];
-
 function add(x, y) {
   return x + y;
 }
@@ -39,7 +37,7 @@ function operate(stack) {
 
 function updateNumberDisplay(str) {
   if (currentNumbers.length <= 15) {
-    if (currentNumbers === "0") {
+    if (currentNumbers === "0" || currentOperator === "=") {
       currentNumbers = str;
       numberDisplay.innerHTML = currentNumbers;
     } else {
@@ -59,10 +57,17 @@ function operatorPress(operator) {
   if (stack.length === 2) {
     if (operator === "=") {
       stack.push(currentNumbers);
-      currentNumbers = operate(stack);
+      currentNumbers = String(operate(stack));
       numberDisplay.innerHTML = currentNumbers;
+      stack = [];
     } else {
-      stack[1] = operator;
+      stack.push(currentNumbers);
+      currentNumbers = String(operate(stack));
+      numberDisplay.innerHTML = currentNumbers;
+      stack = [];
+      stack.push(currentNumbers);
+      currentNumbers = "0";
+      stack.push(operator);
     }
   } else {
     stack.push(currentNumbers);

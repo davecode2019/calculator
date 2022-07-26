@@ -11,7 +11,12 @@ function multiply(x, y) {
 }
 
 function divide(x, y) {
-  return x / y;
+  if (y === 0) {
+    alert("Illegal operation, cannot divide by 0");
+    location.reload();
+  } else {
+    return x / y;
+  }
 }
 
 function operate(stack) {
@@ -35,16 +40,22 @@ function operate(stack) {
   }
 }
 
-function updateNumberDisplay(str) {
-  if (currentNumbers.length <= 15) {
-    if (currentNumbers === "0" || currentOperator === "=") {
-      currentNumbers = str;
-      numberDisplay.innerHTML = currentNumbers;
-    } else {
-      currentNumbers += str;
-      numberDisplay.innerHTML = currentNumbers;
-    }
+function updateCurrentNumbers(str) {
+  if (currentNumbers === "0" || currentOperator === "=") {
+    currentNumbers = str;
+    updateNumberDisplay();
+    updateOperatorDisplay("");
+  } else if (currentNumbers.length < 15) {
+    currentNumbers += str;
+    updateNumberDisplay();
   }
+}
+function updateNumberDisplay() {
+  numberDisplay.innerHTML = currentNumbers;
+}
+
+function expo(x, f) {
+  return Number.parseFloat(x).toExponential(f);
 }
 
 function updateOperatorDisplay(operator) {
@@ -56,24 +67,32 @@ function operatorPress(operator) {
   updateOperatorDisplay(operator);
   if (stack.length === 2) {
     if (operator === "=") {
-      stack.push(currentNumbers);
-      currentNumbers = String(operate(stack));
-      numberDisplay.innerHTML = currentNumbers;
-      stack = [];
+      performOperation();
     } else {
-      stack.push(currentNumbers);
-      currentNumbers = String(operate(stack));
-      numberDisplay.innerHTML = currentNumbers;
-      stack = [];
-      stack.push(currentNumbers);
-      currentNumbers = "0";
-      stack.push(operator);
+      performOperation();
+      updateStack(operator);
     }
   } else {
-    stack.push(currentNumbers);
-    currentNumbers = "0";
-    stack.push(operator);
+    updateStack(operator);
   }
+}
+
+function performOperation() {
+  stack.push(currentNumbers);
+  currentNumbers = String(operate(stack));
+  if (currentNumbers.length <= 15) {
+    updateNumberDisplay();
+  } else {
+    currentNumbers = expo(currentNumbers, 10);
+    updateNumberDisplay();
+  }
+  stack = [];
+}
+
+function updateStack(operator) {
+  stack.push(currentNumbers);
+  currentNumbers = "0";
+  stack.push(operator);
 }
 
 const operatorDisplay = document.querySelector(".operator-display");
@@ -87,7 +106,7 @@ let stack = [];
 
 numberButtons.forEach((button) => {
   button.addEventListener("click", function (e) {
-    updateNumberDisplay(e.target.id);
+    updateCurrentNumbers(e.target.id);
   });
 });
 

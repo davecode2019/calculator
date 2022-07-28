@@ -76,11 +76,14 @@ button:hover {
 
 .button-row {
   display: flex;
+  justify-content: flex-end;
 }
 
 .number,
 .decimal,
-.operator {
+.operator,
+.cancel,
+.delete {
   padding: 0;
   margin: 5px;
   width: 75px;

@@ -95,10 +95,20 @@ function updateStack(operator) {
   stack.push(operator);
 }
 
-function decimalPress(decimal) {
-  if (!currentNumbers.includes(decimal)) {
-    currentNumbers += decimal;
-    updateNumberDisplay;
+function decimalPress() {
+  if (!currentNumbers.includes(".")) {
+    currentNumbers += ".";
+    updateNumberDisplay();
+  }
+}
+
+function deletePress() {
+  if (currentNumbers.length > 1) {
+    currentNumbers = currentNumbers.slice(0, currentNumbers.length - 1);
+    updateNumberDisplay();
+  } else if (currentNumbers.length === 1) {
+    currentNumbers = "0";
+    updateNumberDisplay();
   }
 }
 
@@ -107,10 +117,14 @@ const numberDisplay = document.querySelector(".number-display");
 const numberButtons = document.querySelectorAll(".number");
 const operatorButtons = document.querySelectorAll(".operator");
 const decimalButton = document.querySelector(".decimal");
+const cancelButton = document.querySelector(".cancel");
+const deleteButton = document.querySelector(".delete");
 
 let currentOperator = "";
 let currentNumbers = "0";
 let stack = [];
+
+updateNumberDisplay();
 
 numberButtons.forEach((button) => {
   button.addEventListener("click", function (e) {
@@ -125,5 +139,13 @@ operatorButtons.forEach((button) => {
 });
 
 decimalButton.addEventListener("click", function (e) {
-  decimalPress(e.target.id);
+  decimalPress();
+});
+
+cancelButton.addEventListener("click", function (e) {
+  location.reload();
+});
+
+deleteButton.addEventListener("click", function (e) {
+  deletePress();
 });

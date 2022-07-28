@@ -95,10 +95,18 @@ function updateStack(operator) {
   stack.push(operator);
 }
 
+function decimalPress(decimal) {
+  if (!currentNumbers.includes(decimal)) {
+    currentNumbers += decimal;
+    updateNumberDisplay;
+  }
+}
+
 const operatorDisplay = document.querySelector(".operator-display");
 const numberDisplay = document.querySelector(".number-display");
 const numberButtons = document.querySelectorAll(".number");
 const operatorButtons = document.querySelectorAll(".operator");
+const decimalButton = document.querySelector(".decimal");
 
 let currentOperator = "";
 let currentNumbers = "0";
@@ -114,4 +122,8 @@ operatorButtons.forEach((button) => {
   button.addEventListener("click", function (e) {
     operatorPress(e.target.id);
   });
+});
+
+decimalButton.addEventListener("click", function (e) {
+  decimalPress(e.target.id);
 });
